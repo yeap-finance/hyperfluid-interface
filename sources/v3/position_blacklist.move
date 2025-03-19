@@ -7,6 +7,5 @@ module dex_contract::position_blacklist {
 
     const EALREADY_ADDED: u64 = 140001;
     const ENOT_CONTAINTED: u64 = 140002;
-
 }
 

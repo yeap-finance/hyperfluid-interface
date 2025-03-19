@@ -287,16 +287,23 @@ module dex_contract::pool_v3 {
         _fa_a: FungibleAsset,
         _fa_b: FungibleAsset
     ):(u64, u64, FungibleAsset, FungibleAsset) {
-        let (token_a, token_b, _) = position_v3::get_pool_info(position);
-        (0, 0, fungible_asset::zero(token_a), fungible_asset::zero(token_b))
+        (
+            0,
+            0,
+            _fa_a,
+            _fa_b
+        )
     }
 
     public fun claim_fees(
         _user: &signer,
         _position: Object<position_v3::Info>
     ):(FungibleAsset, FungibleAsset) {
-        let (token_a, token_b, _) = position_v3::get_pool_info(_position);
-        (fungible_asset::zero(token_a), fungible_asset::zero(token_b))
+        (
+            fungible_asset::zero<Metadata>(object::address_to_object(@0xa)),
+            fungible_asset::zero<Metadata>(object::address_to_object(@0xa))
+        )
+
     }
 
     public fun remove_liquidity(
@@ -321,14 +328,17 @@ module dex_contract::pool_v3 {
         _amount: u64,
         _fa_in: FungibleAsset,
         _sqrt_price_limit: u128,
-    ): (u64, FungibleAsset, FungibleAsset) acquires LiquidityPoolV3 {
-        let token_list = supported_inner_assets(_pool);
-        (0, fungible_asset::zero(token_list.borrow(0)), fungible_asset::zero(token_list.borrow(1)))
+    ): (u64, FungibleAsset, FungibleAsset) {
+        (
+            0,
+            _fa_in,
+            fungible_asset::zero<Metadata>(object::address_to_object(@0xa)),
+        )
     }
 
     /////////////////////////////////////  view  /////////////////////////////////////
     #[view]
-    public fun get_fee_rate(fee_tier: u8): u64 {
+    public fun get_fee_rate(_fee_tier: u8): u64 {
         0
     }
 
@@ -346,18 +356,18 @@ module dex_contract::pool_v3 {
 
     #[view]
     public fun liquidity_pool_info_with_coin_fa<CoinType>(
-        token: Object<Metadata>,
-        fee_tier: u8
+        _token: Object<Metadata>,
+        _fee_tier: u8
     ): vector<String> {
         vector::empty<String>()
     }
 
     #[view]
     public fun liquidity_pool_info_both_fa(
-        token_a: Object<Metadata>,
-        token_b: Object<Metadata>,
-        fee_tier: u8
-    ): vector<String> acquires LiquidityPoolV3 {
+        _token_a: Object<Metadata>,
+        _token_b: Object<Metadata>,
+        _fee_tier: u8
+    ): vector<String> {
         vector::empty<String>()
     }
 
@@ -411,7 +421,7 @@ module dex_contract::pool_v3 {
     #[view]
     public fun get_pool_liquidity(
         _pool: Object<LiquidityPoolV3>
-    ): u128 acquires LiquidityPoolV3 {
+    ): u128 {
         0
     }
 }

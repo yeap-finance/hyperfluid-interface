@@ -1,7 +1,7 @@
 module dex_contract::position_v3 {
 
     use aptos_framework::fungible_asset::{Metadata};
-    use aptos_framework::object::{Self, Object};
+    use aptos_framework::object::{Object};
 
     use dex_contract::rewarder::PositionReward;
     use dex_contract::i32::{Self, I32};
@@ -52,13 +52,6 @@ module dex_contract::position_v3 {
         _position: Object<Info>
     ): u128 {
         0
-    }
-
-    public(package) fun get_pool_info(
-        position: Object<Info>
-    ):(Object<Metadata>, Object<Metadata>, u8) acquires Info {
-        let info = borrow_global<Info>(object::object_address(&position));
-        (info.token_a, info.token_b, info.fee_tier)
     }
 
 }
