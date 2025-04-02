@@ -13,8 +13,8 @@ dex_contract = "0xAA"
 deployer = "0xBB"
 
 [dependencies.AptosFramework]
-git = "https://github.com/aptos-labs/aptos-framework.git"
+git = "https://github.com/aptos-labs/aptos-core.git"
 rev = "mainnet"
-subdir = "aptos-framework"
+subdir = "aptos-move/framework/aptos-framework"
 
 [dev-dependencies]
