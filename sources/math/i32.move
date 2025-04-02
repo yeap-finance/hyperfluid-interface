@@ -22,4 +22,8 @@ module dex_contract::i32 {
             bits: 0
         }
     }
+
+    public fun as_u32(v: I32): u32 {
+       0
+    }
 }
