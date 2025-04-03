@@ -76,7 +76,7 @@ module dex_contract::rewarder {
         index: u64
     }
 
-    struct PendingReward {
+    struct PendingReward has drop, copy {
         reward_fa: Object<Metadata>,
         amount_owed: u64
     }
