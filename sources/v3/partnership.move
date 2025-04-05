@@ -2,7 +2,8 @@ module dex_contract::partnership {
 
     use std::string::String;
     use aptos_framework::object::{Object};
-    use aptos_framework::fungible_asset::{Metadata};
+    use aptos_framework::fungible_asset::{Self, FungibleAsset, Metadata};
+    use dex_contract::pool_v3::LiquidityPoolV3;
 
     const ELP_NOT_EMPTY: u64 = 1400001;
     const EOUT_TOKEN_NOT_MATCHED: u64 = 1400002;
@@ -154,6 +155,19 @@ module dex_contract::partnership {
         _recipient: address,
         _partner: String
     ) {
+    }
+
+    public fun swap(
+        _pool: Object<LiquidityPoolV3>,
+        _a2b: bool,
+        _by_amount_in: bool,
+        _amount: u64,
+        _fa_in: FungibleAsset,
+        _sqrt_price_limit: u128,
+        _partner: String
+    ): (u64, FungibleAsset, FungibleAsset) {
+        let metadata = fungible_asset::metadata_from_asset(&_fa_in);
+        (0, _fa_in, fungible_asset::zero(metadata))
     }
 
 
